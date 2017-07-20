@@ -15,39 +15,45 @@ using System.Windows.Shapes;
 
 namespace Calculator.cs
 {
+    // This is the main class that uses Calc.cs abstract methods.
     public partial class MainWindow : Window
     {
+        // These values are made private for the purpose of encapsulation.
         private double num1;
         private double num2;
+        
+        // Class instance of Calc.cs to call abstract methods.
+        Calc calculator = new Calc(); 
 
-        Calc calculator = new Calc(); // instance of calculator
-
-        private void Parse() // parse method to make life easy.
+        // A Parse function designed to convert a value from a textbox to a double.
+        private void Parse()
         {
             try
             {
                 num1 = double.Parse(TextBox1.Text);
                 num2 = double.Parse(TextBox2.Text);
             }
-            catch (FormatException) // catches the format exception to exclude anything but a numerical input.
+            catch (FormatException) // Invalid input caught. Only numbers can be calculated.
             {
                 MessageBox.Show("Please enter a valid numerical input.");
             }
         }
         
+        // Starts The Main Window
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        // Auto Generated Method suffix '_Click' for buttons.
+        // Each method uses abstract methods from Calc.cs; add, minus, divide, multiple
+        // Methods created for GUI. On Click the curent values are parsed and checked before calculations are made.
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             Parse();
             calculator.Add(num1, num2);
             label1.Content = calculator.Sum;
         }
-        // Parses the data, calls the calculator method add taking in both parameters and returns value to label1.content.
-
         private void Minus_Click(object sender, RoutedEventArgs e)
         {
             Parse();
